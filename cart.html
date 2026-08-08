@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping Cart | CHRONOZONE</title>
+  <!-- Font Awesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Global Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="nav-container glass-container">
+      <a href="index.html" class="logo">
+        <i class="fas fa-clock"></i> CHRONO<span>ZONE</span>
+      </a>
+      
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="products.html" class="nav-link">Shop</a>
+        <a href="cart.html" class="nav-link active">Cart</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="cart.html" class="cart-icon-btn" aria-label="Shopping Cart">
+          <i class="fas fa-shopping-bag"></i>
+          <span class="cart-count">0</span>
+        </a>
+        <div class="menu-toggle" id="mobile-menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- CART LAYOUT -->
+  <main class="cart-layout" id="cart-main-container">
+    <!-- Active Cart View -->
+    <section class="cart-items-section">
+      <div class="cart-header">
+        <h2>Your Shopping Bag (<span id="cart-header-count">0</span>)</h2>
+      </div>
+
+      <div id="cart-items-list" style="display: flex; flex-direction: column; gap: 1.25rem;">
+        <!-- Cart items rendered dynamically -->
+      </div>
+    </section>
+
+    <!-- Sidebar Order Summary -->
+    <aside class="glass-container order-summary-sidebar">
+      <h3 class="summary-title">Order Summary</h3>
+      
+      <div class="summary-rows">
+        <div class="summary-row">
+          <span>Subtotal</span>
+          <span id="summary-subtotal">₹0.00</span>
+        </div>
+        <div class="summary-row">
+          <span>Shipping</span>
+          <span id="summary-shipping">Free</span>
+        </div>
+        <div class="summary-row">
+          <span>Estimated Tax (8%)</span>
+          <span id="summary-tax">₹0.00</span>
+        </div>
+        <div class="summary-row" id="promo-row" style="display: none; color: #00e676;">
+          <span>Promo Discount (15%)</span>
+          <span id="summary-discount">-₹0.00</span>
+        </div>
+        <div class="summary-row total">
+          <span>Total</span>
+          <span id="summary-total">₹0.00</span>
+        </div>
+      </div>
+
+      <!-- Promo Box -->
+      <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+        <label style="font-size: 0.8rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase;">Promo Code</label>
+        <div class="promo-container">
+          <input type="text" placeholder="e.g. WATCH15" class="promo-input" id="promo-code-input">
+          <button class="btn btn-secondary btn-promo-apply" id="promo-apply-btn">Apply</button>
+        </div>
+        <span id="promo-error-msg" style="font-size: 0.75rem; color: var(--accent-primary); display: none;">Invalid Code</span>
+        <span id="promo-success-msg" style="font-size: 0.75rem; color: #00e676; display: none;">Code Applied!</span>
+      </div>
+
+      <!-- Checkout Button -->
+      <a href="payment.html" class="btn btn-primary" id="cart-checkout-btn" style="margin-top: 1rem; width: 100%;">
+        Proceed to Payment <i class="fas fa-credit-card"></i>
+      </a>
+    </aside>
+  </main>
+
+  <!-- Empty Cart Display -->
+  <div id="empty-cart-container" style="display: none; max-width: var(--max-width); margin: 0 auto; padding: 6rem 2rem; width: 100%;">
+    <div class="glass-container empty-cart-view">
+      <i class="fas fa-shopping-bag empty-cart-icon"></i>
+      <h2>Your Cart is Empty</h2>
+      <p style="color: var(--text-secondary); max-width: 380px; margin: 0 auto;">Looks like you haven't added any watches to your bag yet. Head to the catalog to discover our premium collections!</p>
+      <a href="products.html" class="btn btn-primary">Go Shopping <i class="fas fa-arrow-right"></i></a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">
+          <i class="fas fa-clock"></i> CHRONO<span>ZONE</span>
+        </a>
+        <p class="footer-desc">Premium boutique for authentic Casio Vintage and high-performance G-Shock timepieces. Elevating your wrist game since 2026.</p>
+        <div class="social-links">
+          <a href="#" class="btn-icon" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="btn-icon" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="btn-icon" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        </div>
+      </div>
+      
+      <div class="footer-column">
+        <h4>Shop</h4>
+        <div class="footer-links">
+          <a href="products.html">New Arrivals</a>
+          <a href="products.html">G-Shock Series</a>
+          <a href="products.html">Casio Vintage</a>
+          <a href="products.html">Chronographs</a>
+        </div>
+      </div>
+      
+      <div class="footer-column">
+        <h4>Support</h4>
+        <div class="footer-links">
+          <a href="#">Size Guide</a>
+          <a href="#">Shipping Details</a>
+          <a href="#">Returns & Exchanges</a>
+          <a href="#">Contact Us</a>
+        </div>
+      </div>
+      
+      <div class="footer-column">
+        <h4>Join the Club</h4>
+        <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 0.75rem;">Get 15% off your first purchase and exclusive access to watch drops.</p>
+        <div class="promo-container">
+          <input type="email" placeholder="Enter your email" class="promo-input">
+          <button class="btn btn-primary btn-promo-apply"><i class="fas fa-paper-plane"></i></button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>&copy; 2026 CHRONOZONE Store. All rights reserved.</p>
+      <div style="display: flex; gap: 1.5rem;">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- DATABASE AND SCRIPTS -->
+  <script src="js/config.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/cart-manager.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      // Fetch dynamic products catalog
+      await initProducts();
+      // DOM Elements
+      const cartMain = document.getElementById('cart-main-container');
+      const emptyCartContainer = document.getElementById('empty-cart-container');
+      const cartItemsList = document.getElementById('cart-items-list');
+      const cartHeaderCount = document.getElementById('cart-header-count');
+      
+      // Order summary details
+      const subtotalEl = document.getElementById('summary-subtotal');
+      const shippingEl = document.getElementById('summary-shipping');
+      const taxEl = document.getElementById('summary-tax');
+      const discountEl = document.getElementById('summary-discount');
+      const promoRow = document.getElementById('promo-row');
+      const totalEl = document.getElementById('summary-total');
+      
+      // Promo code details
+      const promoInput = document.getElementById('promo-code-input');
+      const promoApplyBtn = document.getElementById('promo-apply-btn');
+      const promoErrorMsg = document.getElementById('promo-error-msg');
+      const promoSuccessMsg = document.getElementById('promo-success-msg');
+
+      // Promo state
+      let isPromoApplied = localStorage.getItem('sneaker_store_promo_active') === 'true';
+      let appliedPromoCode = localStorage.getItem('sneaker_store_promo_code') || '';
+      let discountRate = parseFloat(localStorage.getItem('sneaker_store_promo_rate') || '0.15');
+
+      function renderCart() {
+        const cart = getCart();
+        const totalQty = getCartTotalQuantity();
+
+        // Toggle Empty/Active Cart Views
+        if (cart.length === 0) {
+          cartMain.style.display = 'none';
+          emptyCartContainer.style.display = 'block';
+          return;
+        }
+
+        cartMain.style.display = 'grid';
+        emptyCartContainer.style.display = 'none';
+        cartHeaderCount.textContent = totalQty;
+
+        // Render Cart Items
+        cartItemsList.innerHTML = cart.map(item => {
+          const product = getProductById(item.productId);
+          if (!product) return '';
+          
+          return `
+            <div class="glass-card cart-item" data-id="${item.productId}" data-size="${item.size}">
+              <div class="cart-item-img-wrapper">
+                <img src="${product.image}" alt="${product.name}" class="cart-item-img">
+              </div>
+              <div class="cart-item-details">
+                <span class="cart-item-brand">${product.brand}</span>
+                <h3 class="cart-item-name">${product.name}</h3>
+                <span class="cart-item-size">${item.color ? `Dial Color: <span style="display:inline-block; width:10px; height:10px; border-radius:50%; background:${item.color}; margin-left:3px; vertical-align:middle; border:1px solid rgba(255,255,255,0.3)"></span>` : ''}</span>
+                <div class="cart-item-quantity">
+                  <button class="qty-btn btn-qty-change" data-change="-1"><i class="fas fa-minus"></i></button>
+                  <span class="qty-value">${item.quantity}</span>
+                  <button class="qty-btn btn-qty-change" data-change="1"><i class="fas fa-plus"></i></button>
+                </div>
+              </div>
+              <div class="cart-item-price-remove">
+                <div class="cart-item-price">₹${(product.price * item.quantity).toLocaleString('en-IN')}</div>
+                <div class="remove-item-btn" title="Remove Item"><i class="far fa-trash-alt"></i></div>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        // Attach event listeners
+        attachItemEventListeners();
+
+        // Calculate Totals
+        calculateOrderTotals(cart);
+      }
+
+      function calculateOrderTotals(cart) {
+        let subtotal = 0;
+        cart.forEach(item => {
+          const product = getProductById(item.productId);
+          if (product) {
+            subtotal += product.price * item.quantity;
+          }
+        });
+
+        // Rules: Free shipping over ₹15,000, else ₹300
+        const shippingCost = subtotal >= 15000 ? 0 : 300;
+        // Estimated Tax: 8% of subtotal
+        const taxCost = subtotal * 0.08;
+        
+        let discountCost = 0;
+        if (isPromoApplied) {
+          discountCost = subtotal * discountRate;
+          discountEl.textContent = `-₹${discountCost.toLocaleString('en-IN')}`;
+          promoRow.style.display = 'flex';
+        } else {
+          promoRow.style.display = 'none';
+        }
+
+        const totalCost = subtotal + shippingCost + taxCost - discountCost;
+
+        // Render to summary card
+        subtotalEl.textContent = `₹${subtotal.toLocaleString('en-IN')}`;
+        shippingEl.textContent = shippingCost === 0 ? "Free" : `₹${shippingCost.toLocaleString('en-IN')}`;
+        taxEl.textContent = `₹${taxCost.toLocaleString('en-IN')}`;
+        totalEl.textContent = `₹${totalCost.toLocaleString('en-IN')}`;
+      }
+
+      function attachItemEventListeners() {
+        // Quantity Plus/Minus buttons
+        document.querySelectorAll('.btn-qty-change').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            const card = btn.closest('.cart-item');
+            const id = parseInt(card.getAttribute('data-id'));
+            const size = parseFloat(card.getAttribute('data-size'));
+            const change = parseInt(btn.getAttribute('data-change'));
+            
+            updateQuantity(id, size, change);
+            renderCart();
+          });
+        });
+
+        // Trash Bin Buttons
+        document.querySelectorAll('.remove-item-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const card = btn.closest('.cart-item');
+            const id = parseInt(card.getAttribute('data-id'));
+            const size = parseFloat(card.getAttribute('data-size'));
+            
+            removeFromCart(id, size);
+            renderCart();
+          });
+        });
+      }
+
+      // Promo Code Validation Logic
+      promoApplyBtn.addEventListener('click', async () => {
+        const code = promoInput.value.trim().toUpperCase();
+        if (!code) return;
+
+        promoApplyBtn.disabled = true;
+        promoApplyBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+
+        try {
+          const response = await fetch(`${CONFIG.API_BASE_URL}/auth/validate-coupon/${code}`);
+          const data = await response.json();
+
+          if (response.ok) {
+            isPromoApplied = true;
+            appliedPromoCode = data.code;
+            discountRate = data.discountPercent / 100;
+
+            localStorage.setItem('sneaker_store_promo_active', 'true');
+            localStorage.setItem('sneaker_store_promo_code', data.code);
+            localStorage.setItem('sneaker_store_promo_rate', (data.discountPercent / 100).toString());
+
+            promoErrorMsg.style.display = 'none';
+            promoSuccessMsg.style.display = 'block';
+            promoInput.disabled = true;
+            showToast(`Promo Code ${data.code} Applied!`, "success");
+            renderCart();
+          } else {
+            isPromoApplied = false;
+            localStorage.removeItem('sneaker_store_promo_active');
+            localStorage.removeItem('sneaker_store_promo_code');
+            localStorage.removeItem('sneaker_store_promo_rate');
+
+            promoSuccessMsg.style.display = 'none';
+            promoErrorMsg.style.display = 'block';
+            promoErrorMsg.textContent = data.message || 'Invalid Code';
+            renderCart();
+          }
+        } catch (err) {
+          console.error(err);
+          showToast('Failed to validate coupon on database.', 'error');
+        } finally {
+          promoApplyBtn.disabled = isPromoApplied;
+          promoApplyBtn.innerHTML = 'Apply';
+        }
+      });
+
+      // Initialize
+      if (isPromoApplied && appliedPromoCode) {
+        promoInput.value = appliedPromoCode;
+        promoApplyBtn.disabled = true;
+        promoInput.disabled = true;
+        promoSuccessMsg.style.display = 'block';
+      }
+      renderCart();
+
+      // Checkout Guard Click Listener
+      const checkoutBtn = document.getElementById('cart-checkout-btn');
+      if (checkoutBtn) {
+        checkoutBtn.addEventListener('click', (e) => {
+          if (!isLoggedIn()) {
+            e.preventDefault();
+            showToast("Please log in to proceed to checkout", "info");
+            setTimeout(() => {
+              window.location.href = 'login.html?redirect=payment.html';
+            }, 1000);
+          }
+        });
+      }
+
+      // Listen for local storage updates in other tabs
+      window.addEventListener('cartUpdated', renderCart);
+    });
+  </script>
+</body>
+</html>

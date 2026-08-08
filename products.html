@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop Watches | CHRONOZONE</title>
+  <!-- Font Awesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Global Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="nav-container glass-container">
+      <a href="index.html" class="logo">
+        <i class="fas fa-clock"></i> CHRONO<span>ZONE</span>
+      </a>
+      
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="products.html" class="nav-link active">Shop</a>
+        <a href="cart.html" class="nav-link">Cart</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="cart.html" class="cart-icon-btn" aria-label="Shopping Cart">
+          <i class="fas fa-shopping-bag"></i>
+          <span class="cart-count">0</span>
+        </a>
+        <div class="menu-toggle" id="mobile-menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- SHOP AREA -->
+  <main class="shop-layout">
+    <!-- Filters Sidebar -->
+    <aside class="glass-container filters-sidebar">
+      <div class="filter-section">
+        <h3 class="filter-title">Series</h3>
+        <div class="filter-options">
+          <label class="checkbox-label">
+            <input type="checkbox" value="G-Shock" class="brand-filter"> G-Shock
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" value="Casio Vintage" class="brand-filter"> Casio Vintage
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" value="Casio Youth" class="brand-filter"> Casio Youth
+          </label>
+        </div>
+      </div>
+
+      <div class="filter-section">
+        <h3 class="filter-title">Price Range</h3>
+        <div class="price-slider-container">
+          <div class="price-range-inputs">
+            <span>₹0</span>
+            <span id="price-limit-val" style="font-weight: 700; color: var(--accent-primary);">₹30,000</span>
+          </div>
+          <input type="range" min="0" max="30000" step="500" value="30000" class="range-slider" id="price-range-slider">
+        </div>
+      </div>
+
+      <div class="filter-section" style="display: none;">
+        <h3 class="filter-title">Case Sizes</h3>
+        <div class="size-chips" id="size-filter-chips">
+          <span class="size-chip" data-size="36">36mm</span>
+          <span class="size-chip" data-size="38">38mm</span>
+          <span class="size-chip" data-size="40">40mm</span>
+          <span class="size-chip" data-size="42">42mm</span>
+          <span class="size-chip" data-size="44">44mm</span>
+          <span class="size-chip" data-size="46">46mm</span>
+        </div>
+      </div>
+
+      <button class="btn btn-secondary" id="clear-filters-btn" style="padding: 0.6rem; font-size: 0.85rem; width: 100%;">
+        <i class="fas fa-undo"></i> Reset Filters
+      </button>
+    </aside>
+
+    <!-- Catalog Content -->
+    <section class="catalog-content">
+      <div class="catalog-actions glass-container" style="padding: 1rem 1.5rem; display: flex;">
+        <div class="search-box">
+          <i class="fas fa-search"></i>
+          <input type="text" placeholder="Search watches..." class="search-input" id="catalog-search-input">
+        </div>
+
+        <div class="sort-select-wrapper">
+          <select class="sort-select" id="catalog-sort-select">
+            <option value="default">Sort: Recommended</option>
+            <option value="price-low">Price: Low to High</option>
+            <option value="price-high">Price: High to Low</option>
+            <option value="rating">Rating</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Grid -->
+      <div class="product-grid" id="catalog-products-grid">
+        <!-- Rendered dynamically -->
+      </div>
+    </section>
+  </main>
+
+  <!-- QUICK VIEW MODAL OVERLAY -->
+  <div class="modal-overlay" id="quickview-modal">
+    <div class="glass-container modal-content">
+      <span class="modal-close-btn" id="modal-close-btn"><i class="fas fa-times"></i></span>
+      
+      <div class="modal-gallery" style="padding: 1.5rem; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.01);">
+        <img src="" alt="Watch Preview" class="modal-gallery-img" id="modal-product-img" style="max-height: 320px; object-fit: contain;">
+      </div>
+
+      <div class="modal-details">
+        <span class="modal-brand" id="modal-product-brand">Casio</span>
+        <h2 class="modal-name" id="modal-product-name">Vintage Gold</h2>
+        <div class="modal-rating" id="modal-product-rating">
+          <!-- Stars -->
+        </div>
+        
+        <div class="modal-price" id="modal-product-price">$69.99</div>
+        <p class="modal-desc" id="modal-product-desc">Description goes here...</p>
+        
+        <!-- Color pickers -->
+        <div>
+          <span class="size-selector-label">Dial Colorway</span>
+          <div style="display: flex; gap: 0.75rem;" id="modal-color-choices">
+            <!-- Colored circles rendered dynamically -->
+          </div>
+        </div>
+
+        <!-- Size selection (Hidden) -->
+        <div style="display: none;">
+          <span class="size-selector-label">Case Size (Diameter)</span>
+          <div class="size-chips" id="modal-size-chips">
+            <!-- Sizes chips rendered dynamically -->
+          </div>
+        </div>
+
+        <!-- Quantity & Add to Cart -->
+        <div style="display: flex; align-items: center; gap: 1.5rem; margin-top: 1rem; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 1.5rem;">
+          <div class="cart-item-quantity" style="margin-top: 0;">
+            <button class="qty-btn" id="modal-qty-minus"><i class="fas fa-minus"></i></button>
+            <span class="qty-value" id="modal-qty-val">1</span>
+            <button class="qty-btn" id="modal-qty-plus"><i class="fas fa-plus"></i></button>
+          </div>
+          
+          <button class="btn btn-primary" id="modal-add-to-cart-btn" style="flex-grow: 1;">
+            <i class="fas fa-shopping-bag"></i> Add to Cart
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">
+          <i class="fas fa-clock"></i> CHRONO<span>ZONE</span>
+        </a>
+        <p class="footer-desc">Premium boutique for authentic Casio Vintage and high-performance G-Shock timepieces. Elevating your wrist game since 2026.</p>
+        <div class="social-links">
+          <a href="#" class="btn-icon" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="btn-icon" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="btn-icon" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        </div>
+      </div>
+      
+      <div class="footer-column">
+        <h4>Shop</h4>
+        <div class="footer-links">
+          <a href="products.html">New Arrivals</a>
+          <a href="products.html">Casio Vintage Collection</a>
+          <a href="products.html">G-Shock Heavy Duty</a>
+          <a href="products.html">Limited Youth Releases</a>
+        </div>
+      </div>
+      
+      <div class="footer-column">
+        <h4>Support</h4>
+        <div class="footer-links">
+          <a href="#">Case Size Guide</a>
+          <a href="#">Shipping Details</a>
+          <a href="#">Returns & Exchanges</a>
+          <a href="#">Contact Us</a>
+        </div>
+      </div>
+      
+      <div class="footer-column">
+        <h4>Join the Club</h4>
+        <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 0.75rem;">Get 15% off your first purchase and exclusive access to watch drops.</p>
+        <div class="promo-container">
+          <input type="email" placeholder="Enter your email" class="promo-input">
+          <button class="btn btn-primary btn-promo-apply"><i class="fas fa-paper-plane"></i></button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>&copy; 2026 CHRONOZONE Store. All rights reserved.</p>
+      <div style="display: flex; gap: 1.5rem;">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- DATABASE AND SCRIPTS -->
+  <script src="js/config.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/cart-manager.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      // Load products catalog from server
+      await initProducts();
+      // DOM Elements
+      const productsGrid = document.getElementById('catalog-products-grid');
+      const searchInput = document.getElementById('catalog-search-input');
+      const sortSelect = document.getElementById('catalog-sort-select');
+      const priceSlider = document.getElementById('price-range-slider');
+      const priceVal = document.getElementById('price-limit-val');
+      const sizeChips = document.querySelectorAll('#size-filter-chips .size-chip');
+      const clearBtn = document.getElementById('clear-filters-btn');
+      
+      // Quickview Modal elements
+      const quickviewModal = document.getElementById('quickview-modal');
+      const modalCloseBtn = document.getElementById('modal-close-btn');
+      const modalImg = document.getElementById('modal-product-img');
+      const modalBrand = document.getElementById('modal-product-brand');
+      const modalName = document.getElementById('modal-product-name');
+      const modalRating = document.getElementById('modal-product-rating');
+      const modalPrice = document.getElementById('modal-product-price');
+      const modalDesc = document.getElementById('modal-product-desc');
+      const modalColors = document.getElementById('modal-color-choices');
+      const modalSizes = document.getElementById('modal-size-chips');
+      const modalQtyVal = document.getElementById('modal-qty-val');
+      const modalQtyMinus = document.getElementById('modal-qty-minus');
+      const modalQtyPlus = document.getElementById('modal-qty-plus');
+      const modalAddToCartBtn = document.getElementById('modal-add-to-cart-btn');
+
+      // Filters State
+      let selectedBrands = [];
+      let maxPrice = 30000;
+      let selectedSizes = [];
+      let searchQuery = "";
+      let sortBy = "default";
+      
+      // Modal selection state
+      let activeProduct = null;
+      let selectedColor = "";
+      let selectedSize = null;
+      let modalQuantity = 1;
+
+      // Initialize Products Catalog
+      function renderCatalog() {
+        let items = getAllProducts();
+
+        // 1. Search Query Filter
+        if (searchQuery.trim() !== "") {
+          items = items.filter(p => 
+            p.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+            p.brand.toLowerCase().includes(searchQuery.toLowerCase())
+          );
+        }
+
+        // 2. Brand Checkboxes Filter
+        if (selectedBrands.length > 0) {
+          items = items.filter(p => selectedBrands.includes(p.brand));
+        }
+
+        // 3. Price Filter
+        items = items.filter(p => p.price <= maxPrice);
+
+        // 4. Size Filter (Check if sneaker contains ANY of the selected sizes)
+        if (selectedSizes.length > 0) {
+          items = items.filter(p => 
+            selectedSizes.every(size => p.sizes.includes(parseFloat(size)))
+          );
+        }
+
+        // 5. Sorting
+        if (sortBy === 'price-low') {
+          items.sort((a, b) => a.price - b.price);
+        } else if (sortBy === 'price-high') {
+          items.sort((a, b) => b.price - a.price);
+        } else if (sortBy === 'rating') {
+          items.sort((a, b) => b.rating - a.rating);
+        }
+
+        // Render HTML
+        if (items.length === 0) {
+          productsGrid.innerHTML = `
+            <div class="empty-cart-view" style="grid-column: 1 / -1;">
+              <i class="fas fa-search-minus empty-cart-icon"></i>
+              <h3>No Watch Matches</h3>
+              <p style="color: var(--text-secondary);">Try refining your search terms or adjusting the filters.</p>
+            </div>
+          `;
+          return;
+        }
+
+        productsGrid.innerHTML = items.map(p => `
+          <div class="glass-card product-card" style="${!p.inStock ? 'opacity: 0.8;' : ''}">
+            ${!p.inStock ? `<span class="card-badge" style="background: #ef4444; color: #fff;">Sold Out</span>` : (p.badge ? `<span class="card-badge">${p.badge}</span>` : '')}
+            <div class="card-img-container">
+              <img src="${p.image}" alt="${p.name}" class="card-img" style="${!p.inStock ? 'filter: grayscale(1);' : ''}">
+            </div>
+            <div class="card-info">
+              <span class="card-brand">${p.brand}</span>
+              <h3 class="card-name">${p.name}</h3>
+              <div class="card-rating">
+                ${Array(5).fill('').map((_, i) => `<i class="${i < Math.floor(p.rating) ? 'fas' : 'far'} fa-star"></i>`).join('')}
+                <span>(${p.reviewsCount})</span>
+              </div>
+              <div class="card-footer">
+                <span class="card-price">₹${p.price.toLocaleString('en-IN')}</span>
+                <button class="btn btn-primary quick-view-trigger" data-id="${p.id}" style="padding: 0.6rem 1.2rem; font-size: 0.85rem; ${!p.inStock ? 'background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: var(--text-secondary); cursor: pointer;' : ''}">
+                  <i class="fas ${p.inStock ? 'fa-shopping-cart' : 'fa-eye'}"></i> ${p.inStock ? 'Buy' : 'View'}
+                </button>
+              </div>
+            </div>
+          </div>
+        `).join('');
+
+        // Attach event listeners to Buy/Quickview buttons
+        document.querySelectorAll('.quick-view-trigger').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const id = parseInt(btn.getAttribute('data-id'));
+            const product = getProductById(id);
+            if (!product) return;
+
+            if (product.inStock) {
+              // Add to cart directly
+              addToCart(product.id, product.sizes[0], 1, product.colors[0] || '');
+              // Redirect directly to payment
+              window.location.href = 'payment.html';
+            } else {
+              // Open quick view if sold out/view is clicked
+              openQuickView(id);
+            }
+          });
+        });
+      }
+
+      // Quick View Modal Controller
+      function openQuickView(id) {
+        const product = getProductById(id);
+        if (!product) return;
+
+        activeProduct = product;
+        selectedSize = product.sizes[0]; // select first size by default
+        selectedColor = product.colors[0] || '';
+        modalQuantity = 1;
+
+        // Populate elements
+        modalImg.src = product.image;
+        modalImg.alt = product.name;
+        modalBrand.textContent = product.brand;
+        modalName.textContent = product.name;
+        modalPrice.textContent = `₹${product.price.toLocaleString('en-IN')}`;
+        modalDesc.textContent = product.desc;
+        modalQtyVal.textContent = modalQuantity;
+
+        // Configure Add to Cart button based on stock status
+        if (!product.inStock) {
+          modalAddToCartBtn.innerHTML = '<i class="fas fa-ban"></i> Out of Stock';
+          modalAddToCartBtn.disabled = true;
+          modalAddToCartBtn.style.opacity = '0.5';
+          modalAddToCartBtn.style.cursor = 'not-allowed';
+          modalQtyMinus.style.pointerEvents = 'none';
+          modalQtyPlus.style.pointerEvents = 'none';
+        } else {
+          modalAddToCartBtn.innerHTML = '<i class="fas fa-shopping-bag"></i> Add to Cart';
+          modalAddToCartBtn.disabled = false;
+          modalAddToCartBtn.style.opacity = '1';
+          modalAddToCartBtn.style.cursor = 'pointer';
+          modalQtyMinus.style.pointerEvents = 'auto';
+          modalQtyPlus.style.pointerEvents = 'auto';
+        }
+
+        // Render ratings
+        modalRating.innerHTML = `
+          ${Array(5).fill('').map((_, i) => `<i class="${i < Math.floor(product.rating) ? 'fas' : 'far'} fa-star"></i>`).join('')}
+          <span class="modal-rating-count">(${product.reviewsCount} reviews)</span>
+        `;
+
+        // Render Color picks
+        modalColors.innerHTML = product.colors.map((c, idx) => `
+          <span class="color-picker-dot ${idx === 0 ? 'selected' : ''}" 
+                data-color="${c}" 
+                style="background: ${c}; width: 24px; height: 24px; border-radius: 50%; border: 2px solid ${idx === 0 ? 'var(--accent-primary)' : 'rgba(255,255,255,0.2)'}; cursor: pointer; transition: 0.2s;">
+          </span>
+        `).join('');
+
+        // Attach color clicks
+        document.querySelectorAll('.color-picker-dot').forEach(dot => {
+          dot.addEventListener('click', (e) => {
+            document.querySelectorAll('.color-picker-dot').forEach(d => {
+              d.style.borderColor = 'rgba(255,255,255,0.2)';
+              d.classList.remove('selected');
+            });
+            dot.style.borderColor = 'var(--accent-primary)';
+            dot.classList.add('selected');
+            selectedColor = dot.getAttribute('data-color');
+          });
+        });
+
+        // Render Sizes
+        modalSizes.innerHTML = product.sizes.map((s, idx) => `
+          <span class="size-chip ${idx === 0 ? 'selected' : ''}" data-val="${s}">
+            ${s} mm
+          </span>
+        `).join('');
+
+        // Attach size clicks
+        modalSizes.querySelectorAll('.size-chip').forEach(chip => {
+          chip.addEventListener('click', () => {
+            modalSizes.querySelectorAll('.size-chip').forEach(c => c.classList.remove('selected'));
+            chip.classList.add('selected');
+            selectedSize = parseFloat(chip.getAttribute('data-val'));
+          });
+        });
+
+        // Toggle Modal
+        quickviewModal.classList.add('open');
+      }
+
+      // Close modal
+      function closeQuickView() {
+        quickviewModal.classList.remove('open');
+        activeProduct = null;
+      }
+
+      modalCloseBtn.addEventListener('click', closeQuickView);
+      quickviewModal.addEventListener('click', (e) => {
+        if (e.target === quickviewModal) closeQuickView();
+      });
+
+      // Quantity adjustments in Modal
+      modalQtyMinus.addEventListener('click', () => {
+        if (modalQuantity > 1) {
+          modalQuantity--;
+          modalQtyVal.textContent = modalQuantity;
+        }
+      });
+
+      modalQtyPlus.addEventListener('click', () => {
+        modalQuantity++;
+        modalQtyVal.textContent = modalQuantity;
+      });
+
+      // Add to Cart from modal trigger
+      modalAddToCartBtn.addEventListener('click', () => {
+        if (!activeProduct) return;
+        addToCart(activeProduct.id, selectedSize, modalQuantity, selectedColor);
+        closeQuickView();
+      });
+
+      // FILTER LISTENERS
+
+      // Search Box Input
+      searchInput.addEventListener('keyup', (e) => {
+        searchQuery = e.target.value;
+        renderCatalog();
+      });
+
+      // Sort Select
+      sortSelect.addEventListener('change', (e) => {
+        sortBy = e.target.value;
+        renderCatalog();
+      });
+
+      // Price Slider
+      priceSlider.addEventListener('input', (e) => {
+        maxPrice = parseInt(e.target.value);
+        priceVal.textContent = `₹${maxPrice.toLocaleString('en-IN')}`;
+        renderCatalog();
+      });
+
+      // Brand Checkbox Clicks
+      document.querySelectorAll('.brand-filter').forEach(chk => {
+        chk.addEventListener('change', () => {
+          selectedBrands = [];
+          document.querySelectorAll('.brand-filter:checked').forEach(c => {
+            selectedBrands.push(c.value);
+          });
+          renderCatalog();
+        });
+      });
+
+      // Size Chips filter click
+      sizeChips.forEach(chip => {
+        chip.addEventListener('click', () => {
+          chip.classList.toggle('selected');
+          selectedSizes = [];
+          document.querySelectorAll('#size-filter-chips .size-chip.selected').forEach(c => {
+            selectedSizes.push(c.getAttribute('data-size'));
+          });
+          renderCatalog();
+        });
+      });
+
+      // Reset filters button
+      clearBtn.addEventListener('click', () => {
+        // reset brands
+        document.querySelectorAll('.brand-filter').forEach(chk => chk.checked = false);
+        selectedBrands = [];
+        
+        // reset price
+        priceSlider.value = 30000;
+        maxPrice = 30000;
+        priceVal.textContent = '₹30,000';
+        
+        // reset sizes
+        sizeChips.forEach(c => c.classList.remove('selected'));
+        selectedSizes = [];
+        
+        // reset search & sort
+        searchInput.value = '';
+        searchQuery = '';
+        sortSelect.value = 'default';
+        sortBy = 'default';
+
+        renderCatalog();
+      });
+
+      // CHECK FOR DEEP LINKS (Query Params)
+      const urlParams = new URLSearchParams(window.location.search);
+      const deepLinkProductId = urlParams.get('id');
+      
+      // Render catalog first
+      renderCatalog();
+
+      // Open quick view if param exists
+      if (deepLinkProductId) {
+        openQuickView(deepLinkProductId);
+      }
+    });
+  </script>
+</body>
+</html>
